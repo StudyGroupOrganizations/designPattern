@@ -1,0 +1,61 @@
+# 设计模式原则（单一职责，里氏替换，依赖倒置）
+## 单一职责
+理论上来说每个类都应该有自己唯一的责任，看下面的用户类接口
+![][image-1]
+用户的属性和行为没有分开，应该把用户的信息抽象成一个BO，把行为抽取成一个BIZ，如下
+![][image-2]
+产生实现类UserInfo对象，可以把它当作BO接口也可以把它当做BIZ接口使用。
+单一职责原则的定义是：应该有且仅有一个原因引起类的变更。
+## 里氏替换
+原则定义：所有引用基类的地方必须能透明地使用子类的对象。
+四层含义：
+1. 子类必须完全实现父类的方法。
+2. 子类可以有自己的个性
+3. 覆盖或实现父类的方法时输入参数可以被放大
+
+`public class Father{`
+`	public Collection doSomething(HashMap map){`
+`	System.out.println(“父类方法被执行”);`
+`	return map.values();`
+`	}`
+`}`
+
+`public class Son extends Father{`
+`	public Collection doSomething(Map map){`
+`		System.out.println(“子类被执行。。。”);`
+`		return map.values();`
+`	}`
+`}`
+只要参数是hashmap的情况下，父类的方法就不会被覆盖
+4.覆写或实现父类的方法时输出结果可以被缩小
+如果父类的一个方法返回值时一个类型T，子类的相同方法的返回值为S，要么S和T是同一类型要么S是T的子类
+## 依赖倒置原则
+三层含义：
+1. 高层模块不应该依赖于低层模块，两者都应该依赖其抽象
+2. 抽象不应该依赖细节
+3. 细节应该依赖抽象
+
+模块间的依赖通过抽象发生，实现类之间不发生直接的依赖关系，其依赖关系是通过接口或抽象类完成的
+接口或抽象类不依赖实现类
+实现类依赖于接口或者抽象类
+**其实就是面向接口编程 **
+
+例如：建立两个接口，Driver和ICar,分别定义司机和汽车的各个职能，司机必须驾驶汽车，必须实现driver（）方法。
+`public interface Driver{`
+`	public void driver(ICar car);`
+`}`
+司机类的实现
+`public class Driver implements IDriver{`
+`	public void driver(ICar car){`
+`		car.run();`
+`	}`
+`}`
+### 依赖的三种写法
+1. 构造函数传递依赖对象
+2. Setter方法传递依赖对象
+3. 接口声明依赖对象
+
+**本周末去做亲戚，太忙啦，只能看三篇了，下周更新多点。。。。**
+
+[image-1]:	file:///.file/id=6571367.17428543
+[image-2]:	file:///.file/id=6571367.17430286
